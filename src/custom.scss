@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+$primary: #2563eb;
+$success: #34d399;
+$warning: #f59e0b;
+$danger: #ef4444;
+$body-bg: #0f172a;
+$body-color: #cbd5e1;
+$font-family-sans-serif: 'Inter', 'Segoe UI', sans-serif;
+$border-color: #1e293b;
+$card-bg: #111827;
+$card-border-color: #1e293b;
+$input-bg: #111827;
+$input-border-color: #334155;
+$input-color: #e2e8f0;
+$input-placeholder-color: #64748b;
+$table-bg: #0f172a;
+$table-color: #cbd5e1;
+$table-border-color: #1e293b;
+$modal-content-bg: #111827;
+$modal-content-color: #e2e8f0;
+
+@import 'bootstrap/scss/bootstrap';
