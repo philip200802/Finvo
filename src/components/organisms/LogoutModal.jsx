@@ -14,7 +14,7 @@ function LogoutModal({ open, onConfirm, onCancel }) {
                     <h2 className="modal-title">Logout</h2>
                     <p className="modal-message">Are you sure you want to logout? You'll need to log back in to access your account.</p>
                     <div className="modal-actions">
-                        <button className="btn btn-outline-light" onClick={onCancel} type="button">
+                        <button className="btn btn-outline-secondary" onClick={onCancel} type="button">
                             Cancel
                         </button>
                         <button className="btn btn-danger" onClick={onConfirm} type="button">
