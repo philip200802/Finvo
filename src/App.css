@@ -200,13 +200,13 @@ body {
   color: #f59e0b;
 }
 
-/* .status-processing {
+.status-processing {
   color: #60a5fa;
-} */
+}
 
-/* .status-overdue {
+.status-overdue {
   color: #f87171;
-} */
+}
 
 .status-canceled {
   color: #f87171;
@@ -270,29 +270,18 @@ body {
 
 .invoice-action-wrap {
   position: relative;
-  display: inline-flex;
-  width: auto;
+  display: flex;
+  width: fit-content;
   margin-left: auto;
-  justify-content: center;
-  align-items: center;
-}
-
-.invoice-table-wrap {
-  overflow: visible !important;
-}
-
-.invoice-table-wrap .finvo-table,
-.invoice-table-wrap .finvo-table tbody,
-.invoice-table-wrap .finvo-table tr,
-.invoice-table-wrap .finvo-table td {
-  overflow: visible;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .invoice-action-menu {
   position: absolute;
   right: 0;
-  top: calc(100% + 6px);
-  bottom: auto;
+  bottom: calc(100% + 6px);
+  top: auto;
   min-width: 190px;
   background: #1C1B1B;
   border: 1px solid var(--finvo-border);
@@ -300,6 +289,7 @@ body {
   padding: 0.3rem;
   box-shadow: 0 12px 24px rgba(2, 6, 23, 0.35);
   z-index: 40;
+  transform: none;
 }
 
 .invoice-action-item {
@@ -709,7 +699,7 @@ body {
   flex: 1;
 }
 
-.toggle-label>span:first-child {
+.toggle-label > span:first-child {
   flex-shrink: 0;
   margin-top: 0.2rem;
 }

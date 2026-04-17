@@ -12,6 +12,10 @@ const pageMetadata = {
         title: 'Invoice Ledger',
         subtitle: 'Manage and issue invoices with complete payment visibility.',
     },
+    clients: {
+        title: 'Client Portfolio',
+        subtitle: 'Track client accounts, contacts, and billed revenue in one place.',
+    },
     settings: {
         title: 'System Settings',
         subtitle: 'Configure profile, billing, and notification engines.',

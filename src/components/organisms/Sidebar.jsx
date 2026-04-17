@@ -1,9 +1,10 @@
-import { Building2, CircleHelp, FileText, LayoutDashboard, LogOut, Menu, Settings, X } from 'lucide-react'
+import { Building2, CircleHelp, FileText, LayoutDashboard, LogOut, Menu, Settings, Users, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 const menuItems = [
     { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { key: 'invoices', label: 'Invoices', icon: FileText, path: '/invoices' },
+    { key: 'clients', label: 'Clients', icon: Users, path: '/clients' },
     { key: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
 ]
 

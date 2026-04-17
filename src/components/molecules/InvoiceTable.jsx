@@ -2,47 +2,16 @@ import { useEffect, useState } from 'react'
 import { MoreVertical } from 'lucide-react'
 import StatusBadge from '../atoms/StatusBadge'
 
-const INVOICE_STATUS_STORAGE_KEY = 'finvo_invoice_statuses'
-
-function InvoiceTable({ invoices }) {
+function InvoiceTable({ invoices, onStatusChange }) {
     const [rows, setRows] = useState(invoices)
     const [openMenuId, setOpenMenuId] = useState(null)
 
     useEffect(() => {
-        let savedStatuses = {}
-        const savedStatusesRaw = localStorage.getItem(INVOICE_STATUS_STORAGE_KEY)
-        if (savedStatusesRaw) {
-            try {
-                savedStatuses = JSON.parse(savedStatusesRaw)
-            } catch {
-                savedStatuses = {}
-            }
-        }
-
-        const normalizedRows = invoices.map((invoice) => {
-            const savedStatus = savedStatuses[invoice.id]
-            const status = savedStatus ?? invoice.status
-
-            if (status === 'Paid' || status === 'Pending' || status === 'Cancelled') {
-                return { ...invoice, status }
-            }
-
-            return { ...invoice, status: 'Pending' }
-        })
-
-        setRows(normalizedRows)
+        setRows(invoices)
     }, [invoices])
 
     const setInvoiceStatus = (invoiceId, status) => {
-        setRows((prev) => {
-            const nextRows = prev.map((invoice) => (invoice.id === invoiceId ? { ...invoice, status } : invoice))
-            const statusesToSave = nextRows.reduce((acc, invoice) => {
-                acc[invoice.id] = invoice.status
-                return acc
-            }, {})
-            localStorage.setItem(INVOICE_STATUS_STORAGE_KEY, JSON.stringify(statusesToSave))
-            return nextRows
-        })
+        onStatusChange(invoiceId, status)
         setOpenMenuId(null)
     }
 
