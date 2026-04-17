@@ -274,14 +274,11 @@ body {
   width: fit-content;
   margin-left: auto;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .invoice-action-menu {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 8px);
-  top: auto;
+  position: fixed;
   min-width: 190px;
   max-width: 220px;
   background: #1C1B1B;
@@ -289,11 +286,12 @@ body {
   border-radius: 0.6rem;
   padding: 0.5rem;
   box-shadow: 0 12px 24px rgba(2, 6, 23, 0.35);
-  z-index: 40;
-  transform: none;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  animation: slideInUp 0.15s ease;
+  transform: translateY(-100%);
 }
 
 .invoice-action-item {
@@ -709,7 +707,7 @@ body {
   flex: 1;
 }
 
-.toggle-label > span:first-child {
+.toggle-label>span:first-child {
   flex-shrink: 0;
   margin-top: 0.2rem;
 }
@@ -769,6 +767,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -825,9 +824,13 @@ body {
 }
 
 @keyframes typing {
-  0%, 60%, 100% {
+
+  0%,
+  60%,
+  100% {
     opacity: 0.5;
   }
+
   30% {
     opacity: 1;
   }

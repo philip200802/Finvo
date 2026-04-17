@@ -69,8 +69,10 @@ function Sidebar({ open, onToggle, onNewInvoice, onLogout }) {
                         type="button"
                         className="side-link side-link-utility w-100"
                         onClick={() => {
-                            onToggle(false)
-                            onLogout()
+                            if (window.confirm('Are you sure you want to logout?')) {
+                                onToggle(false)
+                                onLogout()
+                            }
                         }}
                     >
                         <LogOut size={18} />

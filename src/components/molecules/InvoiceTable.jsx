@@ -114,6 +114,14 @@ function InvoiceTable({ invoices, onStatusChange }) {
                         <p className="mb-3 text-light fw-semibold fs-5">{invoice.amount}</p>
                         <div className="invoice-action-wrap ms-auto">
                             <button
+                                className="icon-btn me-2"
+                                type="button"
+                                aria-label="Download PDF"
+                                onClick={() => handleDownloadPdf(invoice.id)}
+                            >
+                                <Download size={15} />
+                            </button>
+                            <button
                                 className="icon-btn"
                                 type="button"
                                 aria-label="Invoice actions"
