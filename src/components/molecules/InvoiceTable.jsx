@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { MoreVertical } from 'lucide-react'
+import { MoreVertical, Download } from 'lucide-react'
 import StatusBadge from '../atoms/StatusBadge'
 
 function InvoiceTable({ invoices, onStatusChange }) {
@@ -26,6 +26,11 @@ function InvoiceTable({ invoices, onStatusChange }) {
 
     const handleDeleteInvoice = (invoiceId) => {
         console.log('Delete invoice', invoiceId)
+        setOpenMenuId(null)
+    }
+
+    const handleDownloadPdf = (invoiceId) => {
+        console.log('Download PDF', invoiceId)
         setOpenMenuId(null)
     }
 
@@ -139,7 +144,7 @@ function InvoiceTable({ invoices, onStatusChange }) {
                         </div>
                     </article>
                 ))}
-            </div>
+            </div >
         </>
     )
 }

@@ -8,7 +8,7 @@ const menuItems = [
     { key: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
 ]
 
-function Sidebar({ open, onToggle, onNewInvoice }) {
+function Sidebar({ open, onToggle, onNewInvoice, onLogout }) {
     const location = useLocation()
 
     const isActive = (path) => location.pathname === path
@@ -57,11 +57,22 @@ function Sidebar({ open, onToggle, onNewInvoice }) {
                 </button>
 
                 <div className="sidebar-footer mt-3 pt-3">
-                    <button type="button" className="side-link side-link-utility w-100" onClick={() => onToggle(false)}>
+                    <Link
+                        to="/support"
+                        className="side-link side-link-utility w-100"
+                        onClick={() => onToggle(false)}
+                    >
                         <CircleHelp size={18} />
                         <span>Support</span>
-                    </button>
-                    <button type="button" className="side-link side-link-utility w-100" onClick={() => onToggle(false)}>
+                    </Link>
+                    <button
+                        type="button"
+                        className="side-link side-link-utility w-100"
+                        onClick={() => {
+                            onToggle(false)
+                            onLogout()
+                        }}
+                    >
                         <LogOut size={18} />
                         <span>Logout</span>
                     </button>

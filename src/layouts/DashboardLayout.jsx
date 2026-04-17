@@ -22,7 +22,7 @@ const pageMetadata = {
     },
 }
 
-function DashboardLayout({ onNewInvoice }) {
+function DashboardLayout({ onNewInvoice, onAddClient, onLogout }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const location = useLocation()
 
@@ -33,6 +33,8 @@ function DashboardLayout({ onNewInvoice }) {
 
     const viewKey = getViewKey()
     const page = pageMetadata[viewKey] || pageMetadata.dashboard
+    const primaryActionLabel = viewKey === 'clients' ? '+ Add New Client' : '+ New Invoice'
+    const primaryAction = viewKey === 'clients' ? onAddClient : onNewInvoice
 
     return (
         <div className="app-shell">
@@ -42,10 +44,16 @@ function DashboardLayout({ onNewInvoice }) {
                 open={sidebarOpen}
                 onToggle={(value) => setSidebarOpen(typeof value === 'boolean' ? value : !sidebarOpen)}
                 onNewInvoice={onNewInvoice}
+                onLogout={onLogout}
             />
 
             <main className="app-main">
-                <Topbar title={page.title} subtitle={page.subtitle} onNewInvoice={onNewInvoice} />
+                <Topbar
+                    title={page.title}
+                    subtitle={page.subtitle}
+                    primaryActionLabel={primaryActionLabel}
+                    onPrimaryAction={primaryAction}
+                />
 
                 <section className="content-wrap content-fade-in">
                     <Outlet />

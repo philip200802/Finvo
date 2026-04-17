@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react'
 import { Edit2, Trash2, X } from 'lucide-react'
 import ClientCard from '../components/molecules/ClientCard'
 
-function ClientsView({ clients, onUpdateClient, onDeleteClient }) {
+function ClientsView({ clients, createClientOpen, onCancelCreateClient, onCreateClient, onUpdateClient, onDeleteClient }) {
+    const [createForm, setCreateForm] = useState({ name: '', email: '', revenue: '' })
     const [editingId, setEditingId] = useState(null)
     const [form, setForm] = useState({ name: '', email: '', revenue: '' })
 
@@ -25,9 +26,19 @@ function ClientsView({ clients, onUpdateClient, onDeleteClient }) {
         setForm({ name: '', email: '', revenue: '' })
     }
 
+    const handleCreateSubmit = (event) => {
+        event.preventDefault()
+        onCreateClient({
+            name: createForm.name,
+            email: createForm.email,
+            revenue: createForm.revenue,
+        })
+        setCreateForm({ name: '', email: '', revenue: '' })
+    }
+
     const handleSaveEdit = (event) => {
         event.preventDefault()
-        if (!editingId) {
+        if (editingId === null) {
             return
         }
 
@@ -48,6 +59,55 @@ function ClientsView({ clients, onUpdateClient, onDeleteClient }) {
 
     return (
         <div className="row g-3 g-lg-4">
+            {createClientOpen && (
+                <div className="col-12">
+                    <section className="finvo-card">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <h3 className="card-title mb-0">Create New Client</h3>
+                            <button className="btn btn-outline-light btn-sm" type="button" onClick={onCancelCreateClient}>
+                                <X size={14} className="me-1" /> Close
+                            </button>
+                        </div>
+
+                        <form className="row g-3" onSubmit={handleCreateSubmit}>
+                            <div className="col-md-4">
+                                <label className="eyebrow d-block mb-2">Name</label>
+                                <input
+                                    className="form-control finvo-input"
+                                    value={createForm.name}
+                                    onChange={(event) => setCreateForm((prev) => ({ ...prev, name: event.target.value }))}
+                                    placeholder="Client name"
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label className="eyebrow d-block mb-2">Email</label>
+                                <input
+                                    className="form-control finvo-input"
+                                    type="email"
+                                    value={createForm.email}
+                                    onChange={(event) => setCreateForm((prev) => ({ ...prev, email: event.target.value }))}
+                                    placeholder="name@company.com"
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label className="eyebrow d-block mb-2">Revenue</label>
+                                <input
+                                    className="form-control finvo-input"
+                                    value={createForm.revenue}
+                                    onChange={(event) => setCreateForm((prev) => ({ ...prev, revenue: event.target.value }))}
+                                    placeholder="0"
+                                />
+                            </div>
+                            <div className="col-12 d-flex justify-content-end">
+                                <button className="btn btn-primary" type="submit">Add Client</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            )}
+
             {editingId && (
                 <div className="col-12">
                     <section className="finvo-card">

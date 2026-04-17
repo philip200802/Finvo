@@ -25,13 +25,7 @@ function DashboardView({ stats, revenue, clientShare, taxSummary }) {
                 data: revenue.revenue,
                 backgroundColor: '#2563eb',
                 borderRadius: 8,
-            },
-            {
-                label: 'Expenses',
-                data: revenue.expenses,
-                backgroundColor: '#334155',
-                borderRadius: 8,
-            },
+            }
         ],
     }
 
@@ -65,7 +59,7 @@ function DashboardView({ stats, revenue, clientShare, taxSummary }) {
             ))}
 
             <div className="col-lg-8 col-12">
-                <ChartContainer title="Revenue vs Expenses" subtitle="Fiscal Year 2026">
+                <ChartContainer title="Revenue Analytics" subtitle="Fiscal Year 2026">
                     <div className="chart-wrap">
                         <Bar data={barData} options={barOptions} />
                     </div>

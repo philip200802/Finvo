@@ -23,9 +23,11 @@ import DashboardView from './views/DashboardView'
 import InvoicesView from './views/InvoicesView'
 import ClientsView from './views/ClientsView'
 import SettingsView from './views/SettingsView'
+import SupportView from './views/SupportView'
 
 function App() {
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false)
+  const [clientCreateOpen, setClientCreateOpen] = useState(false)
   const [clients, setClients] = useState(
     MOCK_CLIENTS.map((client, index) => ({
       ...client,
@@ -47,6 +49,20 @@ function App() {
     )
   }
 
+  const handleCreateClient = (payload) => {
+    setClients((prev) => {
+      const nextClient = {
+        id: `client-${Date.now()}`,
+        name: payload.name,
+        email: payload.email,
+        revenue: payload.revenue,
+      }
+
+      return [...prev, nextClient]
+    })
+    setClientCreateOpen(false)
+  }
+
   const handleDeleteClient = (clientId) => {
     setClients((prev) => prev.filter((client) => client.id !== clientId))
   }
@@ -62,6 +78,10 @@ function App() {
           : invoice,
       ),
     )
+  }
+
+  const handleLogout = () => {
+    window.location.href = '/login'
   }
 
   // Integration note:
@@ -81,7 +101,13 @@ function App() {
         </Route>
 
         <Route
-          element={<DashboardLayout onNewInvoice={() => setInvoiceModalOpen(true)} />}
+          element={
+            <DashboardLayout
+              onNewInvoice={() => setInvoiceModalOpen(true)}
+              onAddClient={() => setClientCreateOpen((prev) => !prev)}
+              onLogout={handleLogout}
+            />
+          }
         >
           <Route
             path="/dashboard"
@@ -108,12 +134,16 @@ function App() {
             element={
               <ClientsView
                 clients={clients}
+                createClientOpen={clientCreateOpen}
+                onCancelCreateClient={() => setClientCreateOpen(false)}
+                onCreateClient={handleCreateClient}
                 onUpdateClient={handleUpdateClient}
                 onDeleteClient={handleDeleteClient}
               />
             }
           />
           <Route path="/settings" element={<SettingsView settings={MOCK_SETTINGS} />} />
+          <Route path="/support" element={<SupportView />} />
         </Route>
       </Routes>
 
