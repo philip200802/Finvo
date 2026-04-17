@@ -1,5 +1,7 @@
 import { Building2, CircleHelp, FileText, LayoutDashboard, LogOut, Menu, Settings, Users, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import LogoutModal from './LogoutModal'
 
 const menuItems = [
     { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
@@ -9,6 +11,7 @@ const menuItems = [
 ]
 
 function Sidebar({ open, onToggle, onNewInvoice, onLogout }) {
+    const [logoutModalOpen, setLogoutModalOpen] = useState(false)
     const location = useLocation()
 
     const isActive = (path) => location.pathname === path
@@ -68,18 +71,23 @@ function Sidebar({ open, onToggle, onNewInvoice, onLogout }) {
                     <button
                         type="button"
                         className="side-link side-link-utility w-100"
-                        onClick={() => {
-                            if (window.confirm('Are you sure you want to logout?')) {
-                                onToggle(false)
-                                onLogout()
-                            }
-                        }}
+                        onClick={() => setLogoutModalOpen(true)}
                     >
                         <LogOut size={18} />
                         <span>Logout</span>
                     </button>
                 </div>
             </aside>
+
+            <LogoutModal
+                open={logoutModalOpen}
+                onConfirm={() => {
+                    setLogoutModalOpen(false)
+                    onToggle(false)
+                    onLogout()
+                }}
+                onCancel={() => setLogoutModalOpen(false)}
+            />
         </>
     )
 }
