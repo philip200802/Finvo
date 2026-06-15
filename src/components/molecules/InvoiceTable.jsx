@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { MoreVertical, Download } from 'lucide-react'
 import StatusBadge from '../atoms/StatusBadge'
+import { downloadInvoicePdf } from '../../utils/pdfDownload'
 
 function InvoiceTable({ invoices, onStatusChange }) {
     const [rows, setRows] = useState(invoices)
@@ -29,8 +30,8 @@ function InvoiceTable({ invoices, onStatusChange }) {
         setOpenMenuId(null)
     }
 
-    const handleDownloadPdf = (invoiceId) => {
-        console.log('Download PDF', invoiceId)
+    const handleDownloadPdf = (invoice) => {
+        downloadInvoicePdf(invoice.id, invoice.id)
         setOpenMenuId(null)
     }
 
@@ -80,6 +81,10 @@ function InvoiceTable({ invoices, onStatusChange }) {
                                                     Delete
                                                 </button>
                                                 <div className="invoice-action-divider" />
+                                                <button className="invoice-action-item" type="button" onClick={() => handleDownloadPdf(invoice)}>
+                                                    <Download size={14} className="me-2" style={{ display: 'inline' }} /> Download PDF
+                                                </button>
+                                                <div className="invoice-action-divider" />
                                                 <button className="invoice-action-item" type="button" onClick={() => setInvoiceStatus(invoice.id, 'Paid')}>
                                                     Mark as Paid
                                                 </button>
@@ -117,7 +122,7 @@ function InvoiceTable({ invoices, onStatusChange }) {
                                 className="icon-btn me-2"
                                 type="button"
                                 aria-label="Download PDF"
-                                onClick={() => handleDownloadPdf(invoice.id)}
+                                onClick={() => handleDownloadPdf(invoice)}
                             >
                                 <Download size={15} />
                             </button>

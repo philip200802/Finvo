@@ -1,6 +1,6 @@
 import { Bell, Search, UserCircle2 } from 'lucide-react'
 
-function Topbar({ title, subtitle, primaryActionLabel, onPrimaryAction }) {
+function Topbar({ title, subtitle, username, primaryActionLabel, onPrimaryAction }) {
     return (
         <header className="finvo-topbar">
             <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -20,6 +20,9 @@ function Topbar({ title, subtitle, primaryActionLabel, onPrimaryAction }) {
                     <button className="icon-btn" type="button" aria-label="Profile">
                         <UserCircle2 size={16} />
                     </button>
+                    <span className="text-secondary small d-none d-md-inline" title={username || 'User'}>
+                        {username || 'User'}
+                    </span>
                     <button type="button" className="btn btn-primary d-none d-md-inline-flex" onClick={onPrimaryAction}>
                         {primaryActionLabel}
                     </button>

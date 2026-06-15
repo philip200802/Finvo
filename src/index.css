@@ -114,3 +114,128 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Custom alert for auth pages */
+.finvo-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: 0 18px 34px rgba(124, 39, 78, 0.14);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 18px;
+}
+
+.finvo-alert-error {
+  /* Light theme error */
+  background: linear-gradient(180deg, #fff8fd 0%, #f7eefb 100%);
+  color: #6f2a55;
+  border: 1px solid rgba(211, 174, 232, 0.95);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.finvo-alert-icon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(111, 42, 85, 0.12);
+  color: #6f2a55;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(111, 42, 85, 0.08);
+  margin-top: 0;
+}
+
+.finvo-alert-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding-right: 6px;
+  align-items: start;
+}
+
+.finvo-alert-title {
+  font-size: 0.95rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+
+.finvo-alert .finvo-alert-message {
+  margin-right: 0;
+  text-align: left;
+  color: rgba(111, 42, 85, 0.9);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.finvo-alert-close {
+  flex: 0 0 auto;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 999px;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.finvo-alert-close:hover {
+  opacity: 1;
+  background: rgba(111, 42, 85, 0.08);
+  transform: translateY(-1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .finvo-alert-error {
+    /* Dark theme error styles */
+    background: linear-gradient(180deg, rgba(111, 42, 85, 0.12) 0%, rgba(54, 19, 45, 0.08) 100%);
+    color: #ffdff7;
+    border: 1px solid rgba(111, 42, 85, 0.28);
+  }
+
+  .finvo-alert-icon {
+    background: rgba(111, 42, 85, 0.18);
+    color: #ffdff7;
+  }
+
+  .finvo-alert-title {
+    color: #ffe6fb;
+  }
+
+  .finvo-alert .finvo-alert-message {
+    color: rgba(255, 230, 250, 0.95);
+  }
+
+  .finvo-alert-close {
+    color: rgba(255, 230, 250, 0.9);
+  }
+}
+
+.auth-label-row {
+  min-height: 24px;
+}
+
+.auth-forgot-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.auth-forgot-link:hover {
+  text-decoration: underline;
+}

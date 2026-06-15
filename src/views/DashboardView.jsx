@@ -1,4 +1,6 @@
 import { Bar, Doughnut } from 'react-chartjs-2'
+import { Download, X } from 'lucide-react'
+import { useState } from 'react'
 import {
     ArcElement,
     BarElement,
@@ -11,12 +13,47 @@ import {
 import StatCard from '../components/molecules/StatCard'
 import ChartContainer from '../components/molecules/ChartContainer'
 import TaxSummaryTable from '../components/molecules/TaxSummaryTable'
+import { usePWAInstall } from '../hooks/usePWAInstall'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend)
 
-function DashboardView({ stats, revenue, clientShare, taxSummary }) {
-    // ChartJS data is built from API-backed props.
-    // Keep this mapping layer so backend field names can change without touching UI markup.
+function DashboardView({ stats, revenue, clientShare, taxSummary, invoices = [] }) {
+    const { canInstall, handleInstall, isIOS } = usePWAInstall()
+    const [showInstallPrompt, setShowInstallPrompt] = useState(false)
+    // Calculate stats from invoices
+    const calculatedStats = invoices && invoices.length > 0 ? (() => {
+        const totalRevenue = invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0)
+        const totalPaid = invoices.reduce((sum, inv) => sum + (inv.amountPaid || 0), 0)
+        const pendingCount = invoices.filter(inv => inv.status === 'Pending').length
+        const activeClients = new Set(invoices.map(inv => inv.clientName)).size
+
+        return [
+            {
+                title: 'Total Revenue',
+                value: `₦${(totalRevenue / 1000000).toFixed(1)}M`,
+                meta: '12.5% from last month',
+                icon: '📈',
+            },
+            {
+                title: 'Amount Paid',
+                value: `₦${(totalPaid / 1000000).toFixed(1)}M`,
+                meta: `From ${invoices.filter(inv => inv.amountPaid > 0).length} invoices`,
+                icon: '✓',
+            },
+            {
+                title: 'Pending Invoices',
+                value: pendingCount,
+                meta: `${pendingCount} invoices awaiting payment`,
+                icon: '⏳',
+            },
+            {
+                title: 'Active Clients',
+                value: activeClients,
+                meta: `${invoices.length} total invoices`,
+                icon: '👥',
+            },
+        ]
+    })() : stats
     const barData = {
         labels: revenue.labels,
         datasets: [
@@ -51,8 +88,58 @@ function DashboardView({ stats, revenue, clientShare, taxSummary }) {
 
     return (
         <div className="row g-3 g-lg-4">
-            {/* Dashboard KPI numbers (cards) come from stats[].value and stats[].meta from backend. */}
-            {stats.map((stat) => (
+            {/* PWA Install Prompt */}
+            {(canInstall || isIOS) && showInstallPrompt && (
+                <div className="col-12">
+                    <div className="alert alert-info d-flex align-items-center justify-content-between" role="alert">
+                        <div className="d-flex align-items-center">
+                            <Download size={20} className="me-2" />
+                            <div>
+                                <strong>Install Finvo</strong>
+                                <p className="mb-0 text-secondary small">
+                                    {isIOS
+                                        ? 'Tap Share and select "Add to Home Screen" to install Finvo'
+                                        : 'Install Finvo as an app on your device for offline access and faster performance'}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="d-flex gap-2">
+                            {!isIOS && (
+                                <button
+                                    className="btn btn-sm btn-primary"
+                                    onClick={() => {
+                                        handleInstall()
+                                        setShowInstallPrompt(false)
+                                    }}
+                                >
+                                    Install
+                                </button>
+                            )}
+                            <button
+                                className="btn btn-sm btn-outline-secondary"
+                                onClick={() => setShowInstallPrompt(false)}
+                            >
+                                <X size={16} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Download Button (always visible) */}
+            {(canInstall || isIOS) && !showInstallPrompt && (
+                <div className="col-12">
+                    <button
+                        className="btn btn-outline-primary btn-sm"
+                        onClick={() => setShowInstallPrompt(true)}
+                    >
+                        <Download size={16} className="me-2" /> Download App
+                    </button>
+                </div>
+            )}
+
+            {/* Dashboard KPI numbers (cards) come from calculated or mock stats */}
+            {calculatedStats.map((stat) => (
                 <div className="col-lg-4 col-md-6 col-12" key={stat.title}>
                     <StatCard {...stat} />
                 </div>

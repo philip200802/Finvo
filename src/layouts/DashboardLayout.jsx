@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from '../components/organisms/Sidebar'
 import Topbar from '../components/organisms/Topbar'
+import { getUsername } from '../api/auth'
 
 const pageMetadata = {
     dashboard: {
@@ -33,6 +34,7 @@ function DashboardLayout({ onNewInvoice, onAddClient, onLogout }) {
 
     const viewKey = getViewKey()
     const page = pageMetadata[viewKey] || pageMetadata.dashboard
+    const username = getUsername() || 'User'
     const primaryActionLabel = viewKey === 'clients' ? '+ Add New Client' : '+ New Invoice'
     const primaryAction = viewKey === 'clients' ? onAddClient : onNewInvoice
 
@@ -51,6 +53,7 @@ function DashboardLayout({ onNewInvoice, onAddClient, onLogout }) {
                 <Topbar
                     title={page.title}
                     subtitle={page.subtitle}
+                    username={username}
                     primaryActionLabel={primaryActionLabel}
                     onPrimaryAction={primaryAction}
                 />

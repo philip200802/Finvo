@@ -66,28 +66,7 @@ export const MOCK_INVOICES = [
     },
 ]
 
-export const MOCK_CLIENTS = [
-    {
-        name: 'StructArch',
-        email: 'accounts@structarch.com',
-        revenue: 'NaN',
-    },
-    {
-        name: 'Monoform',
-        email: 'finance@monoform.io',
-        revenue: 'NaN',
-    },
-    {
-        name: 'Void Studios',
-        email: 'billing@voidstudios.com',
-        revenue: 'NaN',
-    },
-    {
-        name: 'Gridworks',
-        email: 'payables@gridworks.com',
-        revenue: 'NaN',
-    },
-]
+export const MOCK_CLIENTS = []
 
 export const MOCK_SETTINGS = [
     { key: 'paymentReceipts', label: 'Payment Receipts', description: 'Send PDF copies of all settled invoices.', enabled: true },

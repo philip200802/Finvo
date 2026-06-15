@@ -1,7 +1,11 @@
 import { Building2, Upload } from 'lucide-react'
 import profileImage from '../../uiux design/unnamed (8).png'
+import { getEmail, getUsername } from '../api/auth'
 
 function SettingsView({ settings }) {
+    const username = getUsername() || 'Alexander Sterling'
+    const email = getEmail() || 'alex@finvo.pro'
+
     return (
         <div className="settings-container">
             {/* Header Section */}
@@ -28,11 +32,11 @@ function SettingsView({ settings }) {
                         </div>
                         <div className="mb-3">
                             <label className="eyebrow d-block mb-2">Full Name</label>
-                            <input className="form-control finvo-input" defaultValue="Alexander Sterling" />
+                            <input className="form-control finvo-input" defaultValue={username} />
                         </div>
                         <div className="mb-3">
                             <label className="eyebrow d-block mb-2">Email Address</label>
-                            <input className="form-control finvo-input" defaultValue="alex@finvo.pro" />
+                            <input className="form-control finvo-input" defaultValue={email} />
                         </div>
                     </div>
                 </div>
