@@ -13,7 +13,6 @@ import {
 import StatCard from '../components/molecules/StatCard'
 import ChartContainer from '../components/molecules/ChartContainer'
 import TaxSummaryTable from '../components/molecules/TaxSummaryTable'
-import { usePWAInstall } from '../hooks/usePWAInstall'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend)
 
